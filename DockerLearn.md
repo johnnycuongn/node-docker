@@ -77,3 +77,21 @@ mongodb://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_IP}:${MONGO_PORT}/?authSource=
 ```
 ssh root@<droplet-ip-address>
 ```
+
+- Install docker on Ubuntu
+```
+curl -fsSL https://get.docker.com -o get-docker.sh
+sh ./get-docker.sh
+```
+
+- Install docker-compose
+
+- Set environment variable in docker-compose.prod by attaching to machine environment (Ubuntu)
+
+### Create environement variable in Ubuntu (unsecured, sample only)
+- create .env file (for sample, use /root), and add variables in
+
+- add following code in .profile
+```
+set -o allexport; source /root/.env; set +o allexport;
+```
