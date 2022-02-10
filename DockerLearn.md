@@ -95,3 +95,36 @@ sh ./get-docker.sh
 ```
 set -o allexport; source /root/.env; set +o allexport;
 ```
+
+### Run our node app in Ubuntu terminal
+- make a folder in the machine (/app)
+- git clone into the folder
+- run docker-compose in production manner
+```
+docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+```
+
+### Rebuild node app (manually) in Ubuntu terminal
+- Update code and push to github
+- Pull in new code to production machine code
+- Rebuild and up app image
+```
+docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
+```
+
+/// or ///
+- Rebuild only node app
+```
+docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build --no-deps node-app
+```
+
+| Building image on production server is bad, must avoid
+
+### Dev Ops workflow
+
+Developer --> --> Docker Hub --> Ubuntu Production Server
+
+```
+docker image tag node-docker_node-app johnnycuongn/node-docker   
+docker push johnnycuongn/node-docker
+```
