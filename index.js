@@ -51,6 +51,10 @@ app.use(function (req, res, next) {
 // ----- API
 const version = 1
 
+app.get(`/api/v${version}`, (req, res) => {
+    res.send('<h1>Welcome to Node-Docker<h1>')
+})
+
 const postRouter = require('./routes/postRoute')
 const userRouter = require('./routes/userRoute')
 
@@ -59,9 +63,7 @@ app.use(`/api/v${version}/posts`, postRouter)
 app.use(`/api/v${version}/user`, userRouter)
 
 
-app.get('/', (req, res) => {
-    res.send('<h1>Welcome<h1>')
-})
+
 
 const port = process.env.port || 3000
 

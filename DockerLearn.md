@@ -106,7 +106,7 @@ docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
 
 ### Rebuild node app (manually) in Ubuntu terminal
 - Update code and push to github
-- Pull in new code to production machine code
+- Pull in new code from github to production machine code
 - Rebuild and up app image
 ```
 docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
@@ -122,9 +122,28 @@ docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build --
 
 ### Dev Ops workflow
 
-Developer --> --> Docker Hub --> Ubuntu Production Server
-
+Push all built images to DockerHub
 ```
 docker image tag node-docker_node-app johnnycuongn/node-docker   
 docker push johnnycuongn/node-docker
+```
+
+Developer --> Docker Hub --> Ubuntu Production Server
+
+Code changes 
+-> Rebuilt changed images (locally)
+```
+docker-compose -f docker-compose.yml -f docker-compose.prod.yml build node-app
+```
+-> Push changed images to DockerHub 
+```
+docker-compose -f docker-compose.yml -f docker-compose.prod.yml push node-app
+```
+-> In Ubuntu machine, pull images from docker
+```
+docker-compose -f docker-compose.yml -f docker-compose.prod.yml pull node-app
+```
+-> Update container
+```
+docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --no-deps node-app
 ```
